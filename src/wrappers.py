@@ -22,6 +22,10 @@ from collections import deque
 import cv2
 import gym
 import numpy as np
+import torch
+
+# local imports
+from utils import FloatTensor
 
 #class NoopResetEnv(gym.Wrapper):
 #    """ Sample initial states by taking random number of no-ops on reset.
@@ -199,7 +203,8 @@ class ImageToPyTorch(gym.ObservationWrapper):
                                                 shape=shape, dtype=np.uint8)
 
     def observation(self, observation):
-        return np.swapaxes(observation, 2, 0)
+        x = FloatTensor(np.swapaxes(observation, 2, 0))
+        return torch.autograd.Variable(x, requires_grad=False).unsqueeze(0)
 
 class WarpFrame(gym.ObservationWrapper):
     """ Warp frames to 84x84 as done in Mnih et al 2015  and later work. """

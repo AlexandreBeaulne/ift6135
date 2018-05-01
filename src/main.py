@@ -22,6 +22,7 @@ import argparse
 import gym
 
 # local imports
+from asyncqlearning import train
 import wrappers
 
 def main():
@@ -40,11 +41,19 @@ def main():
 
     env = wrappers.wrap(gym.make(game))
 
-    observation = env.reset()
-    for _ in range(1000):
-        env.render()
-        action = env.action_space.sample()
-        observation, reward, done, info = env.step(action)
+    #env = gym.make(game)
+    #state = env.reset()
+    #print(type(state))
+    #print(state.shape)
+
+    train(env)
+
+    #observation = env.reset()
+    #for _ in range(1000):
+    #    env.render()
+    #    action = env.action_space.sample()
+    #    observation, reward, done, info = env.step(action)
+
     env.close()
 
 if __name__ == '__main__':
