@@ -1,6 +1,28 @@
+"""
 
+IFT6135 Representation Learning - Final Project
+
+Alexandre Beaulne I.D. 20087309
+Amina Madzhun I.D. 20052277
+
+References:
+
+    * https://openreview.net/forum?id=HyiAuyb0b
+
+Credits - Borrowed from:
+
+    * https://github.com/Shmuma/ptan/blob/master/samples/dqn_speedup/
+
+"""
+
+# stdlib imports
 import argparse
+
+# third party imports
 import gym
+
+# local imports
+import wrappers
 
 def main():
 
@@ -16,7 +38,8 @@ def main():
 
     game = games[args.game]
 
-    env = gym.make(game)
+    env = wrappers.wrap(gym.make(game))
+
     observation = env.reset()
     for _ in range(1000):
         env.render()
