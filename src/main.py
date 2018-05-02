@@ -21,7 +21,7 @@ import argparse
 # third party imports
 
 # local imports
-from qlearning import train
+from nstepqlearning import train
 from utils import GAMES
 
 def main():
