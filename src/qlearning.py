@@ -19,10 +19,9 @@ from utils import FloatTensor
 from utils import GAMES
 import wrappers
 
-def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=10000, batch_size=32):
+def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=20000, batch_size=5):
 
     env = wrappers.wrap(gym.make(GAMES[game]))
-
     num_actions = env.action_space.n
 
     Q1 = QNetwork(num_actions)
@@ -69,7 +68,7 @@ def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=10000, batch_size=
 
         t += 1
 
-        if t % batch_size == 0:
+        if done or t % batch_size == 0:
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
