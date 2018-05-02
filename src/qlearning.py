@@ -19,7 +19,7 @@ from utils import FloatTensor
 from utils import GAMES
 import wrappers
 
-def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=20000, batch_size=5):
+def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=20000, batch_size=32):
 
     env = wrappers.wrap(gym.make(GAMES[game]))
     num_actions = env.action_space.n
@@ -34,6 +34,7 @@ def train(game, num_steps=60000000, lr=0.00025, gamma=0.99, C=20000, batch_size=
 
     epsilon = Epsilon(1, 0.05, 1000000)
     optimizer = torch.optim.Adam(Q1.parameters(), lr=lr)
+    optimizer.zero_grad()
 
     state1 = env.reset()
 
