@@ -19,33 +19,26 @@ Credits - Borrowed from:
 import argparse
 
 # third party imports
-import gym
 
 # local imports
-import wrappers
+from qlearning import train
+from utils import GAMES
 
 def main():
 
-    games = {'pong': 'PongNoFrameskip-v4',
-             'seaquest': 'SeaquestNoFrameskip-v4',
-             'spaceinvaders': 'SpaceInvadersNoFrameskip-v4',
-             'frostbite': 'FrostbiteNoFrameskip-v4',
-             'beamrider': 'BeamRiderNoFrameskip-v4'}
-
     parser = argparse.ArgumentParser()
-    parser.add_argument('--game', type=str, required=True, choices=games.keys())
+    parser.add_argument('--game', type=str, required=True, choices=GAMES.keys())
     args = parser.parse_args()
 
-    game = games[args.game]
+    train(args.game)
 
-    env = wrappers.wrap(gym.make(game))
-
-    observation = env.reset()
-    for _ in range(1000):
-        env.render()
-        action = env.action_space.sample()
-        observation, reward, done, info = env.step(action)
-    env.close()
+#    #observation = env.reset()
+#    #for _ in range(1000):
+#    #    env.render()
+#    #    action = env.action_space.sample()
+#    #    observation, reward, done, info = env.step(action)
+#
+#    env.close()
 
 if __name__ == '__main__':
     main()
